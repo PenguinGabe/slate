@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell"]);
         });
       </script>
   </head>
@@ -29,8 +29,6 @@
       <img src="images/logo.png" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -54,26 +52,6 @@
 
 <h1 id="authentication">Authentication</h1>
 
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
 <p>GJH uses a secret token to allow access to the API. This secret token is meant to be hardcoded in the client app, and passed in the HTTP Headers with every request.</p>
 
 <p>GJH expects for the secret token to be included in all API requests to the server in a header that looks like the following:</p>
@@ -81,112 +59,464 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p><code class="prettyprint">X-APP-SECRET: meowmeowmeow</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>meowmeowmeow</code> with your personal secret token.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<p>Also, some endpoints require an <code class="prettyprint">auth_token</code> from a signed in customer.</p>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>For the most part, an anonymous user can browse the products and even add items to their cart. But the checkout flow will require an authenticated user with the <code class="prettyprint">auth_token</code> parameter like so:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p><code class="prettyprint">auth_token: gwuy1hj21b5hjb3jkbjk6n1k</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+You can get an <code>auth_token</code> for a customer by making a POST request to the /sessions endpoint which creates a new session and auth token for the customer. This will be explained in detail below.
 </aside>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id="segmentation-by-cities">Segmentation by Cities</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>You must pass in a <code class="prettyprint">city_id</code> parameter for most requests.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<p>When the app is first launched, you should prompt the user to select their current city by retrieving the values of all valid cities and their ids from the <code class="prettyprint">/countries</code> endpoint.</p>
+
+<p>Depending on the <code class="prettyprint">city_id</code>, the app will display different categories, subcategories and products all together. The user can change the current city they are in from the settings panel.</p>
+
+<p>A good idea is to cache this <code class="prettyprint">city_id</code> locally to send with every request as a default parameter, and only update it when the user changes the city they are in.t.</p>
+
+<p>GJH expects for the <code class="prettyprint">city_id</code> to be included in all API requests to the server in a query param that looks like the following:</p>
+
+<p><code class="prettyprint">city_id=1</code></p>
+
+<aside class="notice">
+The only API endpoint which does not require the `city_id` parameter is the /countries endpoint, as it&rsquo;s from there that you get all the ids for the different cities.
+</aside>
+
+<h1 id="countries">Countries</h1>
+
+<h2 id="get-all-countries">Get All Countries</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/countries"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="s2">"countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Australia"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Perth"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Melbourne"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indonesia"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"cities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jakarta"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bandung"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<p>This endpoint retrieves all countries, and their cities. A city belongs to a country.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/countries</code></p>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated, neither does it require the `city_id` query parameter. <br><br>However, it still requires the `X-APP-SECRET` header to prove that the request comes from the mobile app.
+</aside>
+
+<h1 id="launch">Launch</h1>
+
+<h2 id="get-all-information-to-display-on-launch">Get All Information To Display On Launch</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/launch?city_id=1"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Clothing"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tops"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Socks"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gadgets"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smart Phones"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rice Cookers"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"collections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest Summer Fashion"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"collection_image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://s3.amazonaws.com/summer.png"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all the information required to show on the home page when the user first enters the app after selecting their city.</p>
+
+<p>You have to pass in the <code class="prettyprint">city_id</code> parameter for the launch API to return the relevant categories and collections for the relevant city.</p>
+
+<p>All the products are lazy loaded, and only displayed after the user selects them on the sidebar, so you only have to load the categories, sub-categories and collections on first launch.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/launch?city_id={:id}</code></p>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
+<h1 id="subcategories">Subcategories</h1>
+
+<h2 id="get-all-products-for-a-particular-subcategory">Get All Products For A Particular Subcategory</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/subcategories/1?city_id=1"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"subcategory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tops"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategory_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a top for crazy people. haha"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CrazyTop001"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crazy Top"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"current_inventory"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumbnail_images"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"product_images"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategory_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a top for funky people. haha"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FunkyTop002"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Funky Top"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"current_inventory"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumbnail_image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"product_images"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves all the products for a selected subcategory, and is normally triggered when the user selects a subcategory from the sidebar.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/subcategories/{:subcategory_id}?city_id={:city_id}</code></p>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
+<h1 id="collections">Collections</h1>
+
+<h2 id="get-all-products-for-a-particular-collection">Get All Products For A Particular Collection</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/collections/1?city_id=1"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Latest Summer Fashion"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategory_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a top for crazy people. haha"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CrazyTop001"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crazy Top"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"current_inventory"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumbnail_images"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"product_images"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"subcategory_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a top for funky people. haha"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FunkyTop002"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Funky Top"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"current_inventory"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumbnail_image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"product_images"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"http://s3.amazonaws.com/image.png"</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves all the products for a selected collection, and is normally triggered when the user selects a collection from the main app view.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/collections/{:collection_id}?city_id={:city_id}</code></p>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
+<h1 id="sessions">Sessions</h1>
+
+<h2 id="sign-in-for-customer">Sign In For Customer</h2>
+
+<p>This endpoint returns an authentication token used to identify the signed in Customer. This authentication token must be used when requesting for the Customer&rsquo;s addresses, and to complete the checkout process.</p>
+
+<p>The response returns the customer details, and more importantly, the <code class="prettyprint">auth_token</code>, which must cached locally and used for any requests requiring customer authentication until the customer logs out.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://gjh-app.herokuapp.com/api/v2/sessions</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>session[&ldquo;email&rdquo;]</td>
+<td>The email of the customer</td>
+</tr>
+<tr>
+<td>session[&ldquo;password&rdquo;]</td>
+<td>The password of customer</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
+<h1 id="customers">Customers</h1>
+
+<h2 id="sign-up-for-customer">Sign Up For Customer</h2>
+
+<p>This endpoint allows a new user to sign up.</p>
+
+<p>Upon successful sign-up, the response returns the customer details, and automatically logs the customer in, and returns the <code class="prettyprint">auth_token</code>, which must cached locally and used for any requests requiring customer authentication until the customer logs out.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://gjh-app.herokuapp.com/api/v2/customers</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer[&ldquo;email&rdquo;]</td>
+<td>Email address. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;password&rdquo;]</td>
+<td>Password. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;password_confirmation&rdquo;]</td>
+<td>Password confirmation. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;first_name&rdquo;]</td>
+<td>First name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;last_name&rdquo;]</td>
+<td>Last name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;gender&rdquo;]</td>
+<td>0 is for Male, 1 is for Female. Required. <code class="prettyprint">integer</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;birthday&rdquo;]</td>
+<td>The birthday in YYYY-MM-DD format. Required.<code class="prettyprint">date</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;mobile_number&rdquo;]</td>
+<td>The mobile number with country code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;nationality&rdquo;]</td>
+<td>Their nationality. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;country&rdquo;]</td>
+<td>Their country. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;city&rdquo;]</td>
+<td>Their city. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;postal_code&rdquo;]</td>
+<td>Their postal/ZIP code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;address&rdquo;]</td>
+<td>Their full address. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;unit_number&rdquo;]</td>
+<td>Unit number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer[&ldquo;telephone_number&rdquo;]</td>
+<td>Telephone number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
+<h1 id="payments">Payments</h1>
+
+<h2 id="request-for-a-braintree-payment-client-token">Request for a Braintree Payment Client Token</h2>
+
+<p>This endpoint requests a payment client token from the server, to be used for creating and instantiating the Braintree API instance.</p>
+
+<p>You will receive a <code class="prettyprint">client_token</code> hash from the server response.</p>
+
+<p>This client_token is NOT meant to be cached and stored long term. You should regenerate it as much as possible without adversely affecting the user experience (requires 2-3 seconds to load).</p>
+
+<p>A good idea is to request for the client token and store it locally temporarily, after a user logs in. Thereafter, if they are constantly logged in, you can also request for a new <code class="prettyprint">client_token</code> each time they hit the Select Payment method page. </p>
+
+<p>This is important, because Braintree does not allow for reuse of client tokens, and will invalidate client tokens after a set amount of time, so it&rsquo;s important to keep them fresh.</p>
+
+<p>Refer to - https://developers.braintreepayments.com/android+ruby/start/overview for more information. I can also explain more to you over the phone, and update this documentation to be more comprehensive when I have the time..</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://gjh-app.herokuapp.com/api/v2/payments/client_token</code></p>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+<h2 id="complete-and-submit-a-purchase">Complete and Submit a Purchase</h2>
+
+<p>This endpoint completes the purchase with Braintree.</p>
+
+<p>It requires 3 parameters -</p>
+
+<ol>
+<li><code class="prettyprint">payment_method_nonce</code> - a cryptographic hash representing the credit card info generated during the checkout process.</li>
+<li><code class="prettyprint">shipping_address_id</code> - an integer, that represents the specific shipping address the customer has on file with us.</li>
+<li><code class="prettyprint">products</code> - an array of hashes, with the product id and the quantity of each product.</li>
+</ol>
+
+<p>If the purchase is successful, and the customer&rsquo;s credit card is successfully charged, you will receive an <code class="prettyprint">order_reference</code> number in the server response.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://gjh-app.herokuapp.com/api/v2/payments/purchases</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -201,6 +531,10 @@ Remember — a happy kitten is an authenticated kitten!
 <td>The ID of the cat to retrieve</td>
 </tr>
 </tbody></table>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
 
           <h1 id="errors">Errors</h1>
 
@@ -264,8 +598,6 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>

@@ -41,16 +41,16 @@ api = kittn.authorize('meowmeowmeow')
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "X-APP-SECRET: meowmeowmeow"
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
 GJH uses a secret token to allow access to the API. This secret token is meant to be hardcoded in the client app, and passed in the HTTP Headers with every request.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+GJH expects for the secret token to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`X-APP-SECRET: meowmeowmeow`
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.

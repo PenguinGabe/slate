@@ -67,7 +67,7 @@
 </code></pre>
 <pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
 </code></pre>
 
 <blockquote>
@@ -76,9 +76,9 @@ curl <span class="s2">"api_endpoint_here"</span>
 
 <p>GJH uses a secret token to allow access to the API. This secret token is meant to be hardcoded in the client app, and passed in the HTTP Headers with every request.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>GJH expects for the secret token to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">X-APP-SECRET: meowmeowmeow</code></p>
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.

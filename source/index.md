@@ -18,11 +18,9 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the GJH Mobile App API! 
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This API serves both the Android and iOS mobile app, and is responsible for serving the products, customer authentication/ creation and payment logic.
 
 # Authentication
 
@@ -48,7 +46,7 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+GJH uses a secret token to allow access to the API. This secret token is meant to be hardcoded in the client app, and passed in the HTTP Headers with every request.
 
 Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
 

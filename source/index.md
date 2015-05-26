@@ -338,6 +338,54 @@ This endpoint doesn't require the customer to be authenticated.
 </aside>
 
 
+
+# Products
+
+## Get A Single Product
+
+```shell
+curl "http://gjh-app.herokuapp.com/api/v2/products/1?city_id=1"
+  -H "X-APP-SECRET: meowmeowmeow"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "product": {
+        "id": 1,
+        "name": "Crazy Top",
+        "sku": "CrazyTop001",
+        "description": "This is a top for crazy people. haha",
+        "price": "20.0",
+        "is_active": true,
+        "current_inventory": 0,
+        "city": {
+            "id": 1,
+            "name": "Perth",
+            "country_id": 1,
+            "description": "Perth has pearls",
+            "is_active": true,
+            "created_at": "2015-05-21T16:19:45.262+08:00",
+            "updated_at": "2015-05-21T16:19:45.262+08:00"
+        },
+        "created_at": "2015-05-21T16:31:37.323+08:00"
+    }
+}
+
+```
+
+This endpoint retrieves a single product, and can be used when checking the inventory of the product. By right, all of the details are returned in the subcategories endpoint, so you do not need to hit this endpoint separately to retrieve product details when entering the product page.
+
+### HTTP Request
+
+`GET http://gjh-app.herokuapp.com/api/v2/products/{:product_id}?city_id={:city_id}`
+
+<aside class="success">
+This endpoint doesn't require the customer to be authenticated.
+</aside>
+
+
 # Sessions
 
 ## Sign In For Customer

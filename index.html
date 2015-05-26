@@ -356,6 +356,50 @@ This endpoint doesn&rsquo;t require the customer to be authenticated.
 This endpoint doesn&rsquo;t require the customer to be authenticated.
 </aside>
 
+<h1 id="products">Products</h1>
+
+<h2 id="get-a-single-product">Get A Single Product</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/products/1?city_id=1"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crazy Top"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CrazyTop001"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a top for crazy people. haha"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"current_inventory"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Perth"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"country_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Perth has pearls"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-21T16:19:45.262+08:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-21T16:19:45.262+08:00"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-21T16:31:37.323+08:00"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves a single product, and can be used when checking the inventory of the product. By right, all of the details are returned in the subcategories endpoint, so you do not need to hit this endpoint separately to retrieve product details when entering the product page.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/products/{:product_id}?city_id={:city_id}</code></p>
+
+<aside class="success">
+This endpoint doesn&rsquo;t require the customer to be authenticated.
+</aside>
+
 <h1 id="sessions">Sessions</h1>
 
 <h2 id="sign-in-for-customer">Sign In For Customer</h2>

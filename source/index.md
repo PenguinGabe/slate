@@ -227,7 +227,7 @@ curl "http://gjh-app.herokuapp.com/api/v2/subcategories/1?city_id=1"
                 "name": "Crazy Top",
                 "current_inventory": 23,
                 "is_active": true,
-                "thumbnail_images": "http://s3.amazonaws.com/image.png",
+                "thumbnail_image": "http://s3.amazonaws.com/image.png",
                 "product_images":[
                   "http://s3.amazonaws.com/image.png",
                   "http://s3.amazonaws.com/image.png",
@@ -296,7 +296,7 @@ curl "http://gjh-app.herokuapp.com/api/v2/collections/1?city_id=1"
                 "name": "Crazy Top",
                 "current_inventory": 23,
                 "is_active": true,
-                "thumbnail_images": "http://s3.amazonaws.com/image.png",
+                "thumbnail_image": "http://s3.amazonaws.com/image.png",
                 "product_images":[
                   "http://s3.amazonaws.com/image.png",
                   "http://s3.amazonaws.com/image.png",
@@ -369,6 +369,12 @@ curl "http://gjh-app.herokuapp.com/api/v2/products/1?city_id=1"
             "created_at": "2015-05-21T16:19:45.262+08:00",
             "updated_at": "2015-05-21T16:19:45.262+08:00"
         },
+        "thumbnail_image": "http://s3.amazonaws.com/image.png",
+        "product_image":[
+                  "http://s3.amazonaws.com/image.png",
+                  "http://s3.amazonaws.com/image.png",
+                  "http://s3.amazonaws.com/image.png"
+        ],
         "created_at": "2015-05-21T16:31:37.323+08:00"
     }
 }

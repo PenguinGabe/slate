@@ -284,11 +284,11 @@ curl "http://gjh-app.herokuapp.com/api/v2/collections/1?city_id=1"
     "collection": {
         "id": 1,
         "name": "Latest Summer Fashion",
+        "collection_image": "http://s3.amazonaws.com/summer.png",
         "products": [
             {
                 "id": 1,
-                "country_id": 1,
-                "city_id": 1,
+                "city": { "id": 1, "name": "Perth", "country_id": 1, "description": "Perth has pearls", "is_active":true},
                 "subcategory_id": 1,
                 "price": "80.0",
                 "description": "This is a top for crazy people. haha",
@@ -305,8 +305,7 @@ curl "http://gjh-app.herokuapp.com/api/v2/collections/1?city_id=1"
             },
             {
                 "id": 2,
-                "country_id": 1,
-                "city_id": 1,
+                "city": { "id": 1, "name": "Perth", "country_id": 1, "description": "Perth has pearls", "is_active":true},
                 "subcategory_id": 1,
                 "price": "80.0",
                 "description": "This is a top for funky people. haha",

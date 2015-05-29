@@ -478,8 +478,22 @@ This endpoint requires the customer to be authenticated. You must thus pass the 
 </aside>
 
 
-
 ## Complete and Submit a Purchase
+
+```shell
+curl "http://gjh-app.herokuapp.com/api/v2/payments/purchases"
+  -H "X-APP-SECRET: meowmeowmeow"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "order_reference": "AU-0000001",
+    "status": 1
+}
+
+```
 
 This endpoint completes the purchase with Braintree.
 
@@ -488,8 +502,11 @@ It requires 3 parameters -
 1. `payment_method_nonce` - a cryptographic hash representing the credit card info generated during the checkout process.
 2. `shipping_address_id` - an integer, that represents the specific shipping address the customer has on file with us.
 3. `products` - an array of hashes, with the product id and the quantity of each product.
+4. `city_id` - the current city the customer is in.
 
-If the purchase is successful, and the customer's credit card is successfully charged, you will receive an `order_reference` number in the server response.
+If the purchase is successful, and the customer's credit card is successfully charged, you will receive an `order_reference` number in the server response. 
+
+You can show this `order_reference` number in the order success/ receipt screen.
 
 ### HTTP Request
 
@@ -499,7 +516,10 @@ If the purchase is successful, and the customer's credit card is successfully ch
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the cat to retrieve
+payment_method_nonce | A string that is generated from the Braintree client SDK after the customer has selected their payment method. `string`
+shipping_address_id | The shipping address id that the customer selected in the previous screen. `integer`
+products | An array of product_id's and the quantity. `array`
+city_id | Current city the customer is in `integer`
 
 <aside class="warning">
 This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.

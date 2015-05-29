@@ -550,6 +550,19 @@ This endpoint requires the customer to be authenticated. You must thus pass the 
 </aside>
 
 <h2 id="complete-and-submit-a-purchase">Complete and Submit a Purchase</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://gjh-app.herokuapp.com/api/v2/payments/purchases"</span>
+  -H <span class="s2">"X-APP-SECRET: meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"order_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AU-0000001"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
 
 <p>This endpoint completes the purchase with Braintree.</p>
 
@@ -559,9 +572,12 @@ This endpoint requires the customer to be authenticated. You must thus pass the 
 <li><code class="prettyprint">payment_method_nonce</code> - a cryptographic hash representing the credit card info generated during the checkout process.</li>
 <li><code class="prettyprint">shipping_address_id</code> - an integer, that represents the specific shipping address the customer has on file with us.</li>
 <li><code class="prettyprint">products</code> - an array of hashes, with the product id and the quantity of each product.</li>
+<li><code class="prettyprint">city_id</code> - the current city the customer is in.</li>
 </ol>
 
-<p>If the purchase is successful, and the customer&rsquo;s credit card is successfully charged, you will receive an <code class="prettyprint">order_reference</code> number in the server response.</p>
+<p>If the purchase is successful, and the customer&rsquo;s credit card is successfully charged, you will receive an <code class="prettyprint">order_reference</code> number in the server response. </p>
+
+<p>You can show this <code class="prettyprint">order_reference</code> number in the order success/ receipt screen.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -576,8 +592,20 @@ This endpoint requires the customer to be authenticated. You must thus pass the 
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>payment_method_nonce</td>
+<td>A string that is generated from the Braintree client SDK after the customer has selected their payment method. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>shipping_address_id</td>
+<td>The shipping address id that the customer selected in the previous screen. <code class="prettyprint">integer</code></td>
+</tr>
+<tr>
+<td>products</td>
+<td>An array of product_id&rsquo;s and the quantity. <code class="prettyprint">array</code></td>
+</tr>
+<tr>
+<td>city_id</td>
+<td>Current city the customer is in <code class="prettyprint">integer</code></td>
 </tr>
 </tbody></table>
 

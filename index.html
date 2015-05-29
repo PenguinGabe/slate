@@ -525,6 +525,138 @@ This endpoint doesn&rsquo;t require the customer to be authenticated.
 This endpoint doesn&rsquo;t require the customer to be authenticated.
 </aside>
 
+<h1 id="customer-shipping-address">Customer Shipping Address</h1>
+
+<h2 id="retrieve-all-customer-shipping-addresses">Retrieve All Customer Shipping Addresses</h2>
+
+<p>This endpoint retrieves all stored shipping addresses for a customer.</p>
+
+<p>You can show all the shipping addresses in the Select Shipping Address page. By default, upon creating an account, the customer will have 1 default shipping address which is populated from their original sign up details. They can also have the option to add more shipping addresses using the CREATE endpoint.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses</code></p>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+<h2 id="create-new-customer-shipping-addresses">Create New Customer Shipping Addresses</h2>
+
+<p>This endpoint allows the customer to create a new shipping address.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer_shipping_address[&ldquo;first_name&rdquo;]</td>
+<td>First name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;last_name&rdquo;]</td>
+<td>Last name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;mobile_number&rdquo;]</td>
+<td>The mobile number with country code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;postal_code&rdquo;]</td>
+<td>Their postal/ZIP code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;address&rdquo;]</td>
+<td>Their full address. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;unit_number&rdquo;]</td>
+<td>Unit number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;telephone_number&rdquo;]</td>
+<td>Telephone number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+<h2 id="edit-customer-shipping-addresses">Edit Customer Shipping Addresses</h2>
+
+<p>This endpoint allows a new user to sign up.</p>
+
+<p>Upon successful sign-up, the response returns the customer details, and automatically logs the customer in, and returns the <code class="prettyprint">auth_token</code>, which must cached locally and used for any requests requiring customer authentication until the customer logs out.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses/{:customer_shipping_address_id}</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>customer_shipping_address[&ldquo;first_name&rdquo;]</td>
+<td>First name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;last_name&rdquo;]</td>
+<td>Last name. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;mobile_number&rdquo;]</td>
+<td>The mobile number with country code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;postal_code&rdquo;]</td>
+<td>Their postal/ZIP code. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;address&rdquo;]</td>
+<td>Their full address. Required. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;unit_number&rdquo;]</td>
+<td>Unit number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+<tr>
+<td>customer_shipping_address[&ldquo;telephone_number&rdquo;]</td>
+<td>Telephone number, if any. Optional. <code class="prettyprint">string</code></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+<h2 id="destroy-existing-customer-shipping-addresses">Destroy Existing Customer Shipping Addresses</h2>
+
+<p>This endpoint allows a new user to sign up.</p>
+
+<p>Upon successful sign-up, the response returns the customer details, and automatically logs the customer in, and returns the <code class="prettyprint">auth_token</code>, which must cached locally and used for any requests requiring customer authentication until the customer logs out.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses/{:customer_shipping_address_id}</code></p>
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
 <h1 id="payments">Payments</h1>
 
 <h2 id="request-for-a-braintree-payment-client-token">Request for a Braintree Payment Client Token</h2>

@@ -451,6 +451,91 @@ This endpoint doesn't require the customer to be authenticated.
 </aside>
 
 
+# Customer Shipping Address
+
+## Retrieve All Customer Shipping Addresses
+
+This endpoint retrieves all stored shipping addresses for a customer.
+
+You can show all the shipping addresses in the Select Shipping Address page. By default, upon creating an account, the customer will have 1 default shipping address which is populated from their original sign up details. They can also have the option to add more shipping addresses using the CREATE endpoint.
+
+### HTTP Request
+
+`GET http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses`
+
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+## Create New Customer Shipping Addresses
+
+This endpoint allows the customer to create a new shipping address.
+
+
+### HTTP Request
+
+`POST http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+customer_shipping_address["first_name"] | First name. Required. `string`
+customer_shipping_address["last_name"] | Last name. Required. `string`
+customer_shipping_address["mobile_number"] | The mobile number with country code. Required. `string`
+customer_shipping_address["postal_code"] | Their postal/ZIP code. Required. `string`
+customer_shipping_address["address"] | Their full address. Required. `string`
+customer_shipping_address["unit_number"] | Unit number, if any. Optional. `string`
+customer_shipping_address["telephone_number"] | Telephone number, if any. Optional. `string`
+
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+## Edit Customer Shipping Addresses
+
+This endpoint allows a new user to sign up.
+
+Upon successful sign-up, the response returns the customer details, and automatically logs the customer in, and returns the `auth_token`, which must cached locally and used for any requests requiring customer authentication until the customer logs out.
+
+### HTTP Request
+
+`PUT http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses/{:customer_shipping_address_id}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+customer_shipping_address["first_name"] | First name. Required. `string`
+customer_shipping_address["last_name"] | Last name. Required. `string`
+customer_shipping_address["mobile_number"] | The mobile number with country code. Required. `string`
+customer_shipping_address["postal_code"] | Their postal/ZIP code. Required. `string`
+customer_shipping_address["address"] | Their full address. Required. `string`
+customer_shipping_address["unit_number"] | Unit number, if any. Optional. `string`
+customer_shipping_address["telephone_number"] | Telephone number, if any. Optional. `string`
+
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
+## Destroy Existing Customer Shipping Addresses
+
+This endpoint allows a new user to sign up.
+
+Upon successful sign-up, the response returns the customer details, and automatically logs the customer in, and returns the `auth_token`, which must cached locally and used for any requests requiring customer authentication until the customer logs out.
+
+### HTTP Request
+
+`DELETE http://gjh-app.herokuapp.com/api/v2/customer_shipping_addresses/{:customer_shipping_address_id}`
+
+
+<aside class="warning">
+This endpoint requires the customer to be authenticated. You must thus pass the <code>auth_token</code> together with your request.
+</aside>
+
 
 
 # Payments
